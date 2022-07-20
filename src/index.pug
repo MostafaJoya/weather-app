@@ -1,0 +1,109 @@
+mixin svg(name,location)
+    svg(class=name)
+      use(xlink:href=`images/sprit.svg#${location}`)
+
+doctype html
+html(lan="en")
+    head
+        meta(charset='UTF-8')
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        title Weather
+    body
+        h1.hello-world
+        .container
+            header.header
+                img.header__logo(src="images/sunorange.svg")
+                div.search
+                    form.search__form
+                        input(class="search__input" type="text" placeholder="Search for Cities OR Countries..." list="suggest", autocomplete="off")
+                        button.search__btn
+                            +svg("search__icon", "search")
+                        datalist.search__suggestion#suggest(autocomplete="on")
+            main.main
+                //-.weather
+                    .weather-side
+                        .weather-gradient
+                            .data
+                                h2(class="data-dayname") Tuesday
+                                span(class="data-day") 15 Jan 2022
+                                +svg("location-icon", "location")
+                                span(class="location") Toronto, CA
+                            .weather-container
+                                i(class="weather-icon" data-feature="sun")
+                                h1(class="weather-temp") 29°C
+                                h3(class="weather-desc") Sunny
+                    .info-side
+                        .today-info-container
+                            .today-info
+                                div(class="pressure")
+                                    span(class="title") PRESSURE
+                                    span(class="value") 0 %
+                                    .clear
+                                div(class="humidity")
+                                    span(class="title") HUMIDITY
+                                    span(class="value") 34 %
+                                    .clear
+                                div(class="wind")
+                                    span(class="title") WIND
+                                    span(class="value") 0 km/h
+                                    .clear
+                        .week-container
+                            ul(class="week-list")
+                                li(class="active")
+                                    i(class="day-icon" data-feature="sun")
+                                    span(class="day-name") Tue
+                                    span(class="day-temp") 29°C
+                                li
+                                    i(class="day-icon" data-feature="cloud")
+                                    span(class="day-name") Wed
+                                    span(class="day-temp") 29°C
+                                li
+                                    i(class="day-icon" data-feature="could-snow")
+                                    span(class="day-name") Tue
+                                    span(class="day-temp") 29°C
+                                .clear
+                        .location-container
+                            button(class="location-button")
+                                i(data-feature="location-button")
+                                span Change location
+
+                //-ul.other-day
+                    li.other-day-li
+                        .other-day-li__info.flex
+                            .other-day-li__info--day.flex
+                                img.other-day-li__info--day--img(src="images/day/122.png")
+                                h2.other-day-li__info--day--day Friday
+                            .other-day-li__maxmin.flex
+                                h2.other-day-li__maxmin--text Clear Sky
+                                h2.other-day-li__maxmin--maxmin &uarr;32/32&darr;
+                        .other-day-li__details.deactive
+                            .other-day-li__details--pressure.flex
+                                h3 pressure
+                                h3
+                                    span.other-day-li__details--pressure-text 1000
+                                    span hPa
+                            .other-day-li__details--could.flex
+                                h3 Coulds
+                                h3
+                                    span.other-day-li__details--could-text 4
+                                    span %
+                            .other-day-li__details--seelevel.flex
+                                h3 See level
+                                h3
+                                    span.other-day-li__details--seelevel-text 1012
+                                    span m
+                            .other-day-li__details--humidity.flex
+                                h3 Humidity
+                                h3
+                                    span.other-day-li__details--humidity-text 21
+                                    span %
+                            .other-day-li__details--wind.flex
+                                h3 Wind speed
+                                h3
+                                    span.other-day-li__details--wind-text 2.63
+                                    span m/s
+                            .other-day-li__details--feels.flex
+                                h3 Feels like
+                                h3
+                                    span.other-day-li__details--feels-text 30
+                                    span &#176;C

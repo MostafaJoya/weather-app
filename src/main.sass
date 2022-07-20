@@ -1,0 +1,330 @@
+:root
+  --color-primary: #d0bdf4
+  --color-secondary: #8458B3
+  --color-tertiary: #494d5f
+  --color-ice: #a0d2eb
+  --gradient: linear-gradient( 135deg, #72EDF2 10%, #5151E5 100%)
+  --bg-font: 6rem
+  --bg-grey-light: #f5f5f5
+  --bg-grey-dark: #e5e5e5
+
+*
+  margin: 0
+  padding: 0
+*,
+*::after,
+*::before
+   box-sizing: inherit
+
+//mixins
+@mixin center
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+.clear
+  clear: both
+
+svg
+  height: 2.25rem
+  width: 2.25rem
+
+html
+  box-sizing: border-box
+  font-size: 62.5%
+
+body
+  font-family: 'Nunito Sans', sans-serif
+  font-weight: 400
+  line-height: 1.6
+  background-image: linear-gradient(to bottom, var(--color-ice), var(--color-primary),var(--color-secondary))
+  background-size: cover
+  background-repeat: no-repeat
+  height: 100vh
+  font-family: 'Montserrat', sans-serif
+  width: 100%
+
+
+
+.container
+   max-width: 100vh
+   min-height: 90vh
+   margin: 4vw auto
+   background-color: var(--color-tertiary)
+   box-shadow: 0 2rem 6rem 0.5rem black
+   border-radius: 9px
+   overflow: hidden
+   //background-image: linear-gradient(to right top, #485461 0%, #28313b 74%)
+
+@media screen and (max-width: 56.25em)
+  body
+    background-image: none
+    height: 0
+  .container
+    border-radius: 0
+    background-color: red
+    height: 100vh
+    margin: 0
+    border-radius: none
+
+
+.header
+   height: 13rem
+   background-color: #fff
+   display: flex
+   justify-content: space-between
+   align-items: center
+
+
+   &__logo
+         height: 9rem
+         width: 9rem
+         padding: 1rem
+         margin-left: 2rem
+
+.search
+   &__form
+     background: var(--bg-grey-light)
+     display: flex
+     align-items: center
+     margin-right: 2rem
+     padding: 1rem
+     border-radius: 10rem
+     &:hover
+       background-color: var(--bg-grey-dark)
+       transform: translateY(-3px)
+   &__input
+     background: transparent
+     border: none
+     &:focus
+                outline: none
+   &__btn
+     margin: .5rem
+     border: none
+     display: flex
+     align-items: center
+     border-radius: 10rem
+     background: transparent
+     cursor: pointer
+     &:hover
+       background: #e5e5e5
+       outline: none
+
+
+.weather
+  display: flex
+  border-radius: 25px
+  box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2)
+  background-color: #222831
+  color: #ffffff
+  height: 40rem
+  width: 60rem
+  &-container
+    position: absolute
+    bottom: 25px
+    left: 25px
+  &-icon.feature
+    height: 6rem
+    width: auto
+  &-temp
+    margin: 0
+    font-weight: 700
+    font-size: 6em
+  &-desc
+    margin: 0
+    font-size: 2rem
+
+
+.weather-side
+  position: relative
+  height: 100%
+  border-radius: 25px
+  background-image: url("https://images.unsplash.com/photo-1559963110-71b394e7494d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80")
+  width: 30rem
+  -webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2)
+          box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2)
+  -webkit-transition: -webkit-transform 300ms ease
+  transition: -webkit-transform 300ms ease
+  -o-transition: transform 300ms ease
+  transition: transform 300ms ease
+  transition: transform 300ms ease, -webkit-transform 300ms ease
+  -webkit-transform: translateZ(0) scale(1.02) perspective(1000px)
+          transform: translateZ(0) scale(1.02) perspective(1000px)
+  float: left
+
+
+.weather-side:hover
+   -webkit-transform: scale(1.1) perspective(1500px) rotateY(10deg)
+           transform: scale(1.1) perspective(1500px) rotateY(10deg)
+
+
+.weather-gradient
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  background-image: var(--gradient)
+  border-radius: 25px
+  opacity: 0.8
+
+
+.data
+  position: absolute
+  top: 25px
+  left: 25px
+  &-dayname
+    margin: 0
+    font-size: 3rem
+  &-day
+    display: block
+    font-size: 2rem
+
+.location
+  display: inline-block
+  margin-top: 10px
+  font-size: 2rem
+  &-icon
+    fill: #fff
+    padding: .5rem
+
+.info-side
+  position: relative
+  float: left
+  height: 100%
+  padding-top: 25px
+
+.today
+  &-info
+    padding: 15px
+    margin: 0 25px 25px 25px
+      /* 	box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25); *
+    border-radius: 10px
+    & > div:not(:last-child)
+      margin: 0 0 10px 0
+    & > div .title
+      float: left
+      font-size: 1.6rem
+      font-weight: 700
+    & >div .value
+      float: right
+      font-size: 1.6rem
+
+
+.week-list
+  display: flex
+  list-style-type: none
+  padding: 0
+  margin: 10px 35px
+  box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25)
+  border-radius: 10px
+  & > li
+     float: left
+     padding: 15px
+     cursor: pointer
+     -webkit-transition: 200ms ease
+     -o-transition: 200ms ease
+     transition: 200ms ease
+     border-radius: 10px
+     font-size: 1.6rem
+  & > li:hover
+    transform: scale(1.1)
+    background: #fff
+    color: #222831
+    z-index: 3
+    box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2)
+  & > li:active
+    background: #fff
+    color: #222831
+    border-radius: 10px
+  & > li .day-name
+    display: block
+    margin: 10px 0 0 0
+    text-align: center
+  & > li .day-icon
+    fill: #fff
+  & > li .day-temp
+    display: block
+    text-align: center
+    margin: 10px 0 0 0
+    font-weight: 700
+
+.location-container
+ padding: 25px 35px
+////////////////////////////todo
+//todo
+
+.location-button
+  outline: none
+  width: 100%
+  -webkit-box-sizing: border-box
+          box-sizing: border-box
+  border: none
+  border-radius: 25px
+  padding: 10px
+  font-family: 'Montserrat', sans-serif
+  background-image: var(--gradient)
+  color: #ffffff
+  font-weight: 700
+  -webkit-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25)
+          box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25)
+  cursor: pointer
+  -webkit-transition: -webkit-transform 200ms ease
+  transition: -webkit-transform 200ms ease
+  -o-transition: transform 200ms ease
+  transition: transform 200ms ease
+  transition: transform 200ms ease, -webkit-transform 200ms ease
+  &:hover
+    -webkit-transform: scale(0.95)
+    -ms-transform: scale(0.95)
+     transform: scale(0.95)
+
+//////////////////////Forcast
+////////
+.deactive
+  display: none !important
+
+.active
+  transform: scale(1.3)
+  background-color: var(--color-tertiary)
+
+.flex
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.other-day
+  background-color: inherit
+  list-style: none
+  cursor: pointer
+  &-li
+    margin: .5rem
+    &__info
+     background-color: #fff
+     border-radius: 9px
+     width: 50rem
+     &--day > *
+        padding: .5rem
+    &__maxmin > *
+        padding: .5rem
+    &__details
+      display: grid
+      grid-template-columns: repeat(2, 1fr)
+      & > *
+        color: #fff
+        font-weight: 200
+        padding: .5rem
+
+
+//// main
+.main
+  height: 77rem
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: space-around
+
+
+.footer
+   height: 10rem
+   background-color: black
