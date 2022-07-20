@@ -24,7 +24,7 @@ const WeatherView = class {
   _markup = function (data, target) {
     const { forecastday } = data.forecast;
     const { date } = forecastday[target];
-    console.log(forecastday);
+    console.log(forecastday, date);
     const {
       avgtemp_c: temp,
       avgvis_km: wind,
@@ -38,7 +38,9 @@ const WeatherView = class {
     const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const localDate = new Date(date);
     const month = mS[localDate.getMonth()];
-    const text = forecastday[target].day.condition.text;
+    const { text, icon } = forecastday[target].day.condition;
+    const iconTarget = icon.split("/").splice(-2).join("/");
+    console.log(text, icon, iconTarget);
     return `<div class="weather">
                 <div class="weather-side">
                     <div class="weather-gradient">
@@ -46,7 +48,9 @@ const WeatherView = class {
                             <h2 class="data-dayname">${
                               daysInWeek[localDate.getDay()]
                             }</h2>
-                            <span class="data-day">${localDate.getDate()} ${month} ${localDate.getFullYear()}</span>
+                            <span class="data-day">${
+                              localDate.getDate() + 1
+                            } ${month} ${localDate.getFullYear()}</span>
                             <svg class="location-icon">
                                 <use xlink:href="c9c68697b00cab96e944.svg#location"></use>
                             </svg>
@@ -55,7 +59,6 @@ const WeatherView = class {
       .toUpperCase()}</span>
                         </div>
                         <div class="weather-container">
-                            <i class="weather-icon" data-feature="sun"></i>
                             <h1 class="weather-temp">${temp}°C</h1>
                             <h3 class="weather-desc">${text}</h3>
                         </div>
@@ -159,6 +162,15 @@ const WeatherView = class {
                  </li>`;
       })
       .join("");
+  }
+  _renderMessage() {
+    `
+        <div class="message">
+            <svg class="message__icon">
+                <use xlink:href=""></use>
+            </svg>
+        </div>
+        `;
   }
 };
 export default new WeatherView();

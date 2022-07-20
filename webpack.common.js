@@ -3,12 +3,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(svg|jpe?g|png|gif)&/,
+        test: /\.(svg|jpe?g|png|gif)&/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
         use: {
-          loader: "file-loader",
+          loader: "babel-loader",
           options: {
-            name: "[name].[hash].[ext]",
-            outputPath: "imgs",
+            presets: ["@babel/preset-env"],
           },
         },
       },

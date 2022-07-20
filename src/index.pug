@@ -1,6 +1,6 @@
 mixin svg(name,location)
     svg(class=name)
-      use(xlink:href=`images/sprit.svg#${location}`)
+      use(xlink:href=`assets/images/sprit.svg#${location}`)
 
 doctype html
 html(lan="en")
@@ -12,7 +12,7 @@ html(lan="en")
         h1.hello-world
         .container
             header.header
-                img.header__logo(src="images/sunorange.svg")
+                img.header__logo(src="assets/images/sunorange.svg")
                 div.search
                     form.search__form
                         input(class="search__input" type="text" placeholder="Search for Cities OR Countries..." list="suggest", autocomplete="off")
@@ -20,6 +20,9 @@ html(lan="en")
                             +svg("search__icon", "search")
                         datalist.search__suggestion#suggest(autocomplete="on")
             main.main
+                .message
+                    +svg('message__icon', 'search')
+                    span.message__text Please Search for City!
                 //-.weather
                     .weather-side
                         .weather-gradient
