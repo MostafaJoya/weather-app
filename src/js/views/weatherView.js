@@ -36,7 +36,7 @@ const WeatherView = class {
     //prettier-ignore
     const mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     //prettier-ignore
-    const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const daysInWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday' ];
     const localDate = new Date(date);
     const month = mS[localDate.getMonth()];
     const { text } = forecastday[target].day.condition;
