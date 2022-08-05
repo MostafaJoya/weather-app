@@ -17,5 +17,4 @@ export const updateWeather = (data) => {
 export const updateDay = (target) => {
   if (target === state.targetDay) return;
   state.targetDay = target;
-  console.log(state.targetDay);
 };

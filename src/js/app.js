@@ -11,28 +11,28 @@ const controlSearchInput = async function (entry) {
     model.updateCity(newCity);
     inputView._render(model.state.entry);
   } catch (err) {
-    console.log(err.message);
+    weatherView._renderError(`Please check your connection! ${err.message}`);
   }
 };
 const controlSubmitForm = async function (finallCity) {
   try {
+    weatherView._loader();
     const targetWeather = await weather(finallCity);
     model.updateWeather(targetWeather);
     weatherView._render(model.state.dataWeather);
   } catch (err) {
-    console.log(err.message);
+    weatherView._renderError(`Please check your connection! ${err.message}`);
   }
 };
 
 const controlChangeDay = function (target) {
   try {
-    console.log(target);
     //update target day
     model.updateDay(target);
     //render new weather
     weatherView._render(model.state.dataWeather, model.state.targetDay);
   } catch (err) {
-    console.log(err.message);
+    weatherView._renderError(`Please check your connection! ${err.message}`);
   }
 };
 

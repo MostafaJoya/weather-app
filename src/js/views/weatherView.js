@@ -13,7 +13,6 @@ const WeatherView = class {
 
   addHandlerUpdateDay(handler) {
     this._parentElement.addEventListener("click", function (e) {
-      console.log("clicked");
       const target = e.target.closest(".week-item");
       const dataTarget = target?.dataset?.target;
       if (!dataTarget) return;
@@ -23,11 +22,13 @@ const WeatherView = class {
 
   _markup = function (data, target) {
     const { forecastday } = data.forecast;
+    const { lat, lon } = data.location;
     const { date } = forecastday[target];
-    console.log(forecastday, date);
     const {
       avgtemp_c: temp,
       avgvis_km: wind,
+      maxtemp_c: maxtemp,
+      mintemp_c: mintemp,
       avghumidity: humidity,
     } = forecastday[target].day;
 
@@ -38,9 +39,8 @@ const WeatherView = class {
     const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const localDate = new Date(date);
     const month = mS[localDate.getMonth()];
-    const { text, icon } = forecastday[target].day.condition;
-    const iconTarget = icon.split("/").splice(-2).join("/");
-    console.log(text, icon, iconTarget);
+    const { text } = forecastday[target].day.condition;
+    const { sunrise, sunset } = forecastday[target].astro;
     return `<div class="weather">
                 <div class="weather-side">
                     <div class="weather-gradient">
@@ -51,10 +51,7 @@ const WeatherView = class {
                             <span class="data-day">${
                               localDate.getDate() + 1
                             } ${month} ${localDate.getFullYear()}</span>
-                            <svg class="location-icon">
-                                <use xlink:href="c9c68697b00cab96e944.svg#location"></use>
-                            </svg>
-                            <span class="location">${city}, ${country
+                            <span class="location"> ${city}, ${country
       .slice(0, 2)
       .toUpperCase()}</span>
                         </div>
@@ -67,9 +64,8 @@ const WeatherView = class {
             <div class="info-side">
                 <div class="today-info-container">
                     <div class="today-info">
-                        <div class="pressure">
-                            <span class="title">PRESSURE</span>
-                            <span class="value">0 %</span>
+                        <div class="latlng">
+                            <span class="title">LAT: ${lat}, LON: ${lon}</span>
                             <div class="clear"></div>
                         </div>
                         <div class="humidity">
@@ -89,53 +85,37 @@ const WeatherView = class {
                         ${this._childMarkup(forecastday)}
                     </ul>
                 </div>
-                <div class="location-container">
-                    <button class="location-button">
-                    <i data-feature="location-button"></i>
-                    <span>Change location</span>
-                    </button>
-                </div>
             </div>
           </div>
           <ul class="other-day">
                 <li class="other-day-li">
                     <div class="other-day-li__info flex">
                         <div class="other-day-li__info--day flex">
-                            <img class="other-day-li__info--day--img" src="036a7f4b9402e1d74535.png">
-                            <h2 class="other-day-li__info--day--day">Friday</h2>
+                            <h2 class="other-day-li__info--day--day">${
+                              daysInWeek[localDate.getDay()]
+                            }</h2>
                         </div>
                         <div class="other-day-li__maxmin flex">
-                            <h2 class="other-day-li__maxmin--text">Clear Sky</h2>
-                            <h2 class="other-day-li__maxmin--maxmin">&uarr;32/32&darr;</h2>
+                            <h2 class="other-day-li__maxmin--text">${text}</h2>
+                            <h2 class="other-day-li__maxmin--maxmin">&uarr;${maxtemp}/${mintemp}&darr;</h2>
                         </div>
                     </div>
-                    <div class="other-day-li__details deactive">
-                        <div class="other-day-li__details--pressure flex">
-                            <h3>pressure</h3>
-                            <h3>
-                                <span class="other-day-li__details--pressure-text">1000</span>
-                                <span>hPa</span>
-                            </h3>
+                    <div class="other-day-li__details ">
+                        <div class="other-day-li__details--mintemp flex">
+                            <h3>MIN temprature</h3>
+                            <span>${mintemp}°C</span>
                         </div>
-                        <div class="other-day-li__details--could flex">
-                            <h3>Coulds</h3>
-                            <h3><span class="other-day-li__details--could-text">4</span><span>%</span></h3>
+                        <div class="other-day-li__details--maxtemp flex">
+                            <h3>MAX temprature</h3>
+                            <span>${maxtemp}°C</span>
                         </div>
-                        <div class="other-day-li__details--seelevel flex">
-                            <h3>See level</h3>
-                            <h3><span class="other-day-li__details--seelevel-text">1012</span><span>m</span></h3>
+                        <div class="other-day-li__details--sunrise flex">
+                            <h3>Sunrise</h3>
+                            <span>${sunrise}</span>
                         </div>
-                        <div class="other-day-li__details--humidity flex">
-                            <h3>Humidity</h3>
-                            <h3><span class="other-day-li__details--humidity-text">21</span><span>%</span></h3>
-                        </div>
-                        <div class="other-day-li__details--wind flex">
-                            <h3>Wind speed</h3>
-                            <h3><span class="other-day-li__details--wind-text">2.63</span><span>m/s</span></h3>
-                        </div>
-                        <div class="other-day-li__details--feels flex">
-                            <h3>Feels like</h3>
-                            <h3><span class="other-day-li__details--feels-text">30</span><span>&#176;C</span></h3>
+                        <div class="other-day-li__details--sunset flex">
+                            <h3>Sunset</h3>
+                            <span>${sunset}</span>
                         </div>
                     </div>
                 </li>
@@ -163,14 +143,26 @@ const WeatherView = class {
       })
       .join("");
   }
-  _renderMessage() {
-    `
+  _renderError(err) {
+    const html = `
         <div class="message">
-            <svg class="message__icon">
-                <use xlink:href=""></use>
-            </svg>
+          <div class="message__warn">
+            &#9888;
+          </div>
+          <span class="message__err">
+            ${err}
+          </span>
         </div>
         `;
+    this._parentElement.innerHTML = "";
+    this._parentElement.insertAdjacentHTML("afterbegin", html);
+  }
+  _loader() {
+    const html = `
+        <div class="loader"></div>
+        `;
+    this._parentElement.innerHTML = "";
+    this._parentElement.insertAdjacentHTML("afterbegin", html);
   }
 };
 export default new WeatherView();

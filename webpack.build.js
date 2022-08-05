@@ -23,13 +23,27 @@ module.exports = merge(common, {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
+      {
+        test: /\.pug$/i,
+        use: ["html-loader", "pug-html-loader"],
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "[name].[hash].css" }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: "./src/index.pug",
       minify: {
         removeAttributeQuotes: true,
         collapseWhitespace: true,

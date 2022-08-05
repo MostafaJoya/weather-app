@@ -7,7 +7,7 @@ html(lan="en")
     head
         meta(charset='UTF-8')
         meta(name="viewport" content="width=device-width, initial-scale=1")
-        title Weather
+        title Weather-App
     body
         h1.hello-world
         .container
@@ -15,7 +15,7 @@ html(lan="en")
                 img.header__logo(src="assets/images/sunorange.svg")
                 div.search
                     form.search__form
-                        input(class="search__input" type="text" placeholder="Search for Cities OR Countries..." list="suggest", autocomplete="off")
+                        input(class="search__input" type="text" placeholder="Search for Cities OR Countries!" list="suggest", autocomplete="off")
                         button.search__btn
                             +svg("search__icon", "search")
                         datalist.search__suggestion#suggest(autocomplete="on")

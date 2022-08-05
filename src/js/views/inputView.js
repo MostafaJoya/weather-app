@@ -35,6 +35,8 @@ class InputView {
       e.preventDefault();
       const targetCity = this.querySelector(".search__input").value;
       if (!targetCity || targetCity === "") return;
+      //for reseting the iput
+      this.reset();
       handler(targetCity);
     });
   };
