@@ -1,6 +1,6 @@
 # weather-app
 _A simple Weather-App for learning purposes and portfolio_
-[You can see this app in ](weather-joya.netlify.app)
+[weather-app](weather-joya.netlify.app)
 ## Technologies
 Project is created with:
 * Javascript
